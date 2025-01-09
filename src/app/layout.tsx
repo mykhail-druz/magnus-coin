@@ -1,6 +1,13 @@
+import React from 'react';
+import { Radio_Canada } from 'next/font/google';
 import type { Metadata } from 'next';
 import './globals.scss';
-import React from 'react';
+
+const radioCanada = Radio_Canada({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-radio-canada',
+});
 
 export const metadata: Metadata = {
   title: 'Magnus The Capybara',
@@ -13,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={radioCanada.variable}>
       <body>{children}</body>
     </html>
   );

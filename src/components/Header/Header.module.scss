@@ -1,0 +1,19 @@
+.header {
+  @apply bg-headerBg h-12 items-center justify-center hidden md:flex;
+}
+
+.headerContent {
+  @apply max-w-[80%] w-full h-full flex flex-row justify-between items-center;
+}
+
+.logo {
+  @apply font-radioCanadaBig text-secondaryText font-[700] text-2xl flex items-center;
+}
+
+.navContainer {
+  @apply flex flex-row space-x-6 items-center;
+}
+
+.socialBlock {
+  @apply font-radioCanadaBig font-[700] flex flex-row space-x-1 text-secondaryText items-center;
+}

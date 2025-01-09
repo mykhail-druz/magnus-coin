@@ -3,3 +3,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --font-radio-canada: 'Radio Canada', sans-serif;
+
+  --background: #FFFFFF;
+
+  /* For Text */
+  --primary-text-color: #000000;
+  --secondary-text-color: #FFFFFF;
+  --primary-accent-text-color: #BC0000;
+  --secondary-accent-color: #FA5858;
+
+  /* For Buttons */
+  --btn-bg-color: #ff0000;
+
+  /* For Cards */
+  --card-bg-color: #000000;
+
+  /* Header */
+  --header-bg-color: #C62626;
+
+  /* Sections */
+  --meet-magnus-bg-color: #F5DEC4;
+  --follow-magnus-bg-color: #FFFFFF;
+  --tokenomics-bg-color: #BE7E35;
+
+  /* Footer */
+  --footer-bg-color: #092354;
+}
+
+body {
+  background-color: $background-color;
+  font-family: var(--font-radio-canada);
+}
