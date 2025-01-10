@@ -1,0 +1,19 @@
+.section {
+  @apply relative w-full h-screen flex justify-center items-center overflow-hidden;
+}
+
+.imageWrapper {
+  @apply absolute top-0 left-0 w-full h-full z-[-1] overflow-hidden;
+}
+
+.imageMotion {
+  @apply absolute top-[-125%] left-0 w-full h-[350%];
+}
+
+.imageContainer {
+  @apply absolute top-0 left-0 w-full h-full overflow-hidden;
+}
+
+.capybaraWrapper {
+  @apply absolute z-[1] bottom-[40%] left-[35%];
+}

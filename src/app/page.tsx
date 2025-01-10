@@ -1,4 +1,4 @@
-import { EiffelFrame, Header, MountainFrame } from '@/components';
+import { EiffelFrame, Header, MountainFrame, RocketFrame } from '@/components';
 
 export default function Home() {
   return (
@@ -7,6 +7,7 @@ export default function Home() {
 
       <MountainFrame />
       <EiffelFrame />
+      <RocketFrame />
     </main>
   );
 }
