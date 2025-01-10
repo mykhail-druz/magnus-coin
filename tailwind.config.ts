@@ -19,6 +19,7 @@ export default {
 
         /* Buttons */
         btnBg: 'var(--btn-bg-color)',
+        btnNextBg: 'var(--btn-next-bg-color)',
 
         /* Cards */
         cardBg: 'var(--card-bg-color)',

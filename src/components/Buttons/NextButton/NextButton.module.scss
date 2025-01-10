@@ -1,0 +1,15 @@
+.buttonBlock {
+  @apply flex items-center justify-center;
+}
+
+.desktopOnly {
+  @apply hidden md:flex bg-btnNextBg rounded-[12px] py-[12px] px-[24px] cursor-pointer;
+
+  p {
+    @apply font-[500] text-primaryText text-2xl ;
+  }
+}
+
+.mobileOnly {
+  @apply block md:hidden;
+}

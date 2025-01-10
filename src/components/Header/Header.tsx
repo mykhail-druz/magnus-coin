@@ -4,7 +4,7 @@ import styles from './Header.module.scss';
 import X from '@/icons/X.svg';
 import Telegram from '@/icons/Telegram.svg';
 
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
   return (
     <header className={styles.header}>
       <div className={styles.headerContent}>
@@ -24,5 +24,3 @@ const Header: React.FC = () => {
     </header>
   );
 };
-
-export default Header;
