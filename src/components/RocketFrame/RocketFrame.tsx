@@ -31,7 +31,7 @@ export const RocketFrame: React.FC = () => {
           <div className={styles.imageContainer}>
             <Image
               src="/images/rocket.png"
-              alt="Eiffel tower"
+              alt="Rocket"
               fill
               priority
               style={{
