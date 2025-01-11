@@ -36,7 +36,7 @@ export const MountainFrame: React.FC = () => {
         >
           <div className={styles.imageContainer}>
             <Image
-              src="/images/mountains.png"
+              src="/images/mountains.webp"
               alt="Mountains"
               fill
               style={{ objectFit: 'cover' }}

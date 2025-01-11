@@ -30,7 +30,7 @@ export const RocketFrame: React.FC = () => {
         >
           <div className={styles.imageContainer}>
             <Image
-              src="/images/rocket.png"
+              src="/images/rocket.webp"
               alt="Rocket"
               fill
               priority

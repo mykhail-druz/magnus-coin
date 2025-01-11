@@ -31,7 +31,7 @@ export const EiffelFrame: React.FC = () => {
         >
           <div className={styles.imageContainer}>
             <Image
-              src="/images/eiffel.png"
+              src="/images/eiffel.webp"
               alt="Eiffel tower"
               fill
               priority

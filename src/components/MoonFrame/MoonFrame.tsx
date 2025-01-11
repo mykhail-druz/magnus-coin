@@ -25,7 +25,7 @@ export const MoonFrame: React.FC = () => {
 
     // Animation settings
     const duration = 2.5; // Animation duration in seconds
-    const points = 360; // Number of animation steps for smoothness
+    const points = 120; // Number of animation steps for smoothness
 
     // Final positions and arc height for the trajectory
     const finalX = 1250;
@@ -83,7 +83,7 @@ export const MoonFrame: React.FC = () => {
         >
           <div className={styles.imageContainer}>
             <Image
-              src="/images/moon.png"
+              src="/images/moon.webp"
               alt="Moon"
               fill
               priority
