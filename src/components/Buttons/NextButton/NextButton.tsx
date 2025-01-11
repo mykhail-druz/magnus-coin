@@ -24,7 +24,7 @@ export const NextButton: React.FC<NextButtonProps> = ({ isClicked }) => {
           transition={{ duration: 3, ease: 'easeInOut' }}
           style={{ pointerEvents: 'auto' }}
         >
-          <Link href="/" passHref>
+          <Link href="/#meet" passHref>
             <p>Next</p>
           </Link>
         </motion.div>

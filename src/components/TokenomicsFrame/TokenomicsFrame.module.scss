@@ -1,0 +1,39 @@
+.section {
+  @apply relative bg-tokenomicsBg h-screen justify-center flex;
+}
+
+.mainContainer {
+  @apply flex flex-col gap-[40px] w-[90vw] md:w-[80vw] pt-[56px] md:pt-[90px] pb-[70px] md:pb-[210px];
+}
+
+.title {
+  @apply font-radioCanada font-[700] text-secondaryText text-[40px] leading-[52px];
+}
+
+.cardsBlock {
+  @apply flex flex-col gap-[24px] xl:w-[70%] 2xl:w-[60%];
+}
+
+.cardsTop {
+  @apply flex flex-col md:flex-row gap-[24px] w-full;
+
+  & > * {
+    @apply flex-1;
+  }
+}
+
+.coin {
+  @apply absolute;
+}
+
+.coin:nth-child(1) {
+  @apply absolute;
+}
+
+.coin:nth-child(2) {
+  @apply absolute;
+}
+
+.coin:nth-child(3) {
+  @apply absolute;
+}

@@ -3,11 +3,11 @@
 }
 
 .headerContent {
-  @apply max-w-[80%] w-full h-full flex flex-row justify-between items-center;
+  @apply w-[80%] h-full flex flex-row justify-between items-center;
 }
 
 .logo {
-  @apply font-radioCanadaBig text-secondaryText font-[700] text-2xl flex items-center;
+  @apply font-radioCanada text-secondaryText font-[700] text-2xl flex items-center;
 }
 
 .navContainer {
@@ -15,5 +15,5 @@
 }
 
 .socialBlock {
-  @apply font-radioCanadaBig font-[700] flex flex-row space-x-1 text-secondaryText items-center;
+  @apply font-radioCanada font-[700] flex flex-row space-x-1 text-secondaryText items-center;
 }

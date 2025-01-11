@@ -1,0 +1,27 @@
+.section {
+  @apply bg-followMagnusBg flex items-center justify-center min-h-[500px];
+}
+
+.mainContainer {
+  @apply flex flex-col md:flex-row gap-[36px] w-[90vw] md:w-[80vw] justify-center py-[60px];
+}
+
+.image {
+  @apply md:pt-[30px] sm:w-[100%] md:w-[50%] xl:w-[50%] 2xl:w-[30%];
+
+  img {
+    @apply mx-auto;
+  }
+}
+
+.descBlock {
+  @apply flex flex-col gap-[28px] md:gap-[16px] md:w-[50%] xl:w-[50%] 2xl:w-[30%] min-h-[510px] md:min-h-[310px] text-center md:text-left items-center md:items-start;
+}
+
+.descTitle {
+  @apply font-radioCanada font-[700] text-primaryAccentText text-[40px] leading-[52px];
+}
+
+.descText {
+  @apply font-radioCanada font-[400] text-primaryText text-[24px] leading-[28.8px];
+}

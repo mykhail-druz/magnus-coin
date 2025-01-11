@@ -1,0 +1,11 @@
+.card {
+  @apply bg-cardBg py-[14px] px-[24px] rounded-[16px] gap-[16px] font-radioCanada text-primaryText;
+}
+
+.title {
+  @apply flex flex-wrap items-center gap-0 md:gap-[16px] font-[700]  text-[40px] leading-[52px];
+}
+
+.description {
+  @apply font-[400] text-[24px] leading-[28.8px];
+}

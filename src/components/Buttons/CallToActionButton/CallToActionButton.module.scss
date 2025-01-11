@@ -1,0 +1,7 @@
+.btnBlock {
+  @apply bg-btnBg flex w-fit rounded-[12px]
+}
+
+.btnTitle {
+  @apply py-[12px] px-[24px] font-radioCanada font-[500] text-[24px] text-secondaryText leading-[28.8px]
+}

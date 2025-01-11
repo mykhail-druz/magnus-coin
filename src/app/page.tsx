@@ -1,9 +1,12 @@
 import {
+  AboutMagnusFrame,
   EiffelFrame,
   Header,
+  MeetMagnusFrame,
   MoonFrame,
   MountainFrame,
   RocketFrame,
+  TokenomicsFrame,
 } from '@/components';
 
 export default function Home() {
@@ -15,6 +18,9 @@ export default function Home() {
       <EiffelFrame />
       <RocketFrame />
       <MoonFrame />
+      <MeetMagnusFrame />
+      <AboutMagnusFrame />
+      <TokenomicsFrame />
     </main>
   );
 }

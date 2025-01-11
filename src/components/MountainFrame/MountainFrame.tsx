@@ -79,10 +79,10 @@ export const MountainFrame: React.FC = () => {
           }
           transition={{ duration: 2, ease: 'easeInOut' }}
         >
-          <motion.p className={styles.descriptionText}>
+          <motion.h1 className={styles.descriptionText}>
             Meet <span className="text-secondaryAccent">$magnus,</span>
             <br /> the Climbing Capybara.
-          </motion.p>
+          </motion.h1>
           <NextButton isClicked={isClicked} />
         </motion.div>
       </motion.div>

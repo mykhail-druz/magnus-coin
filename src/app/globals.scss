@@ -16,11 +16,11 @@
   --secondary-accent-color: #fa5858;
 
   /* For Buttons */
-  --btn-bg-color: #ff0000;
+  --btn-bg-color: #bc0000;
   --btn-next-bg-color: #ffffff;
 
   /* For Cards */
-  --card-bg-color: #000000;
+  --card-bg-color: #ffffff;
 
   /* Header */
   --header-bg-color: #c62626;
@@ -32,6 +32,10 @@
 
   /* Footer */
   --footer-bg-color: #092354;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {

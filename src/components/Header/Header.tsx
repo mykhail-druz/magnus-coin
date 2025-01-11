@@ -1,6 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
+
 import styles from './Header.module.scss';
+
 import X from '@/icons/X.svg';
 import Telegram from '@/icons/Telegram.svg';
 
