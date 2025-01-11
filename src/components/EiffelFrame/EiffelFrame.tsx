@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 import styles from './EiffelFrame.module.scss';
-import Magnus from '@/icons/Magnus.svg';
 
 export const EiffelFrame: React.FC = () => {
   const [isClicked, setIsClicked] = useState(false);
@@ -55,7 +54,12 @@ export const EiffelFrame: React.FC = () => {
           }
           transition={{ duration: 2, ease: 'easeInOut' }}
         >
-          <Magnus />
+          <Image
+            src="/images/magnus.png"
+            width={103}
+            height={103}
+            alt="Magnus"
+          />
         </motion.div>
       </motion.div>
     </section>

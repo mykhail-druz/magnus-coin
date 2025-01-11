@@ -4,7 +4,6 @@ import { motion, useMotionValue } from 'framer-motion';
 import Image from 'next/image';
 
 import styles from './MoonFrame.module.scss';
-import Magnus from '@/icons/Magnus.svg';
 
 export const MoonFrame: React.FC = () => {
   const [isClicked, setIsClicked] = useState(false);
@@ -25,7 +24,7 @@ export const MoonFrame: React.FC = () => {
 
     // Animation settings
     const duration = 2.5; // Animation duration in seconds
-    const points = 120; // Number of animation steps for smoothness
+    const points = 200; // Number of animation steps for smoothness
 
     // Final positions and arc height for the trajectory
     const finalX = 1250;
@@ -95,7 +94,12 @@ export const MoonFrame: React.FC = () => {
             className={styles.capybaraWrapper}
             style={{ x, y, rotate }}
           >
-            <Magnus />
+            <Image
+              src="/images/magnus.png"
+              width={103}
+              height={103}
+              alt="Magnus"
+            />
           </motion.div>
         </motion.div>
       </motion.div>

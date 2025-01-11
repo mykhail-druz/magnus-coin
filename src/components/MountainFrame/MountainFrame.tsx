@@ -4,9 +4,6 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 
 import styles from './MountainFrame.module.scss';
-
-import Flag from '@/icons/Flag.svg';
-import Magnus from '@/icons/Magnus.svg';
 import { NextButton } from '@/components';
 
 export const MountainFrame: React.FC = () => {
@@ -45,7 +42,7 @@ export const MountainFrame: React.FC = () => {
 
           {/* Flag inside imageMotion */}
           <div className={styles.flagWrapper}>
-            <Flag />
+            <Image src="/images/flag.png" width={103} height={103} alt="Flag" />
           </div>
         </motion.div>
 
@@ -63,7 +60,12 @@ export const MountainFrame: React.FC = () => {
           }
           transition={{ duration: 2.5, ease: 'easeInOut' }}
         >
-          <Magnus />
+          <Image
+            src="/images/magnus.png"
+            width={103}
+            height={103}
+            alt="Magnus"
+          />
         </motion.div>
         {/* Text and button */}
         <motion.div

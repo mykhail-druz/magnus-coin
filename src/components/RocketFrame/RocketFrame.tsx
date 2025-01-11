@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 
 import styles from './RocketFrame.module.scss';
 import Image from 'next/image';
-import Magnus from '@/icons/Magnus.svg';
 
 export const RocketFrame: React.FC = () => {
   const [isClicked, setIsClicked] = useState(false);
@@ -53,7 +52,12 @@ export const RocketFrame: React.FC = () => {
           }
           transition={{ duration: 2, ease: 'easeInOut' }}
         >
-          <Magnus />
+          <Image
+            src="/images/magnus.png"
+            width={103}
+            height={103}
+            alt="Magnus"
+          />
         </motion.div>
       </motion.div>
     </section>
