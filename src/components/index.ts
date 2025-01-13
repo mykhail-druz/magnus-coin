@@ -7,6 +7,7 @@ export * from './MoonFrame';
 export * from './MeetMagnusFrame';
 export * from './AboutMagnusFrame';
 export * from './TokenomicsFrame';
+export * from './Footer';
 
 //Components
 export * from './Buttons';

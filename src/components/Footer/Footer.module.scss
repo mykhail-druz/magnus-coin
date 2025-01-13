@@ -1,0 +1,39 @@
+.section {
+  @apply relative w-full h-[125vh] overflow-hidden bg-footerBg px-[5vw] md:px-[10vw] pt-[92px] z-[1];
+}
+
+.image {
+  @apply absolute w-full h-[350vh] top-[50%] left-0 z-[2];
+}
+
+.capybara {
+  @apply absolute left-[20%] bottom-[10%] z-[3];
+}
+
+.descWrapper {
+  @apply relative flex flex-col gap-[56px] z-[1000];
+}
+
+.descContainer {
+  @apply flex flex-col gap-[16px];
+}
+
+.descTitle {
+  @apply font-radioCanada font-[700]  text-secondaryText text-[40px] leading-[52px];
+}
+
+.descText {
+  @apply font-radioCanada font-[400] text-secondaryText text-[24px] leading-[31.2px];
+}
+
+.socialContainer {
+  @apply flex flex-row gap-[54px];
+}
+
+.socialBlock {
+  @apply flex flex-row gap-[16px] items-center;
+}
+
+.socialText {
+  @apply font-radioCanada font-[400] text-secondaryText text-[24px] leading-[31.2px];
+}

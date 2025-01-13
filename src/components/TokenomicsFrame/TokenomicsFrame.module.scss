@@ -1,5 +1,5 @@
 .section {
-  @apply relative bg-tokenomicsBg h-screen justify-center flex;
+  @apply relative bg-tokenomicsBg h-screen justify-center flex overflow-hidden;
 }
 
 .mainContainer {
@@ -7,7 +7,7 @@
 }
 
 .title {
-  @apply font-radioCanada font-[700] text-secondaryText text-[40px] leading-[52px];
+  @apply font-radioCanada font-[700] text-secondaryText text-[40px] leading-[52px] z-[2];
 }
 
 .cardsBlock {
@@ -15,11 +15,15 @@
 }
 
 .cardsTop {
-  @apply flex flex-col md:flex-row gap-[24px] w-full;
+  @apply flex flex-col md:flex-row gap-[24px] w-full z-[3];
 
   & > * {
     @apply flex-1;
   }
+}
+
+.cardsBot {
+  @apply z-[2];
 }
 
 .coin {
@@ -36,4 +40,8 @@
 
 .coin:nth-child(3) {
   @apply absolute;
+}
+
+.blurredCoin {
+  @apply absolute z-[1];
 }

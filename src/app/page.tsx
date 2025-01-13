@@ -1,6 +1,7 @@
 import {
   AboutMagnusFrame,
   EiffelFrame,
+  Footer,
   Header,
   MeetMagnusFrame,
   MoonFrame,
@@ -21,6 +22,8 @@ export default function Home() {
       <MeetMagnusFrame />
       <AboutMagnusFrame />
       <TokenomicsFrame />
+
+      <Footer />
     </main>
   );
 }
