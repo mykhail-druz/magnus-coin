@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
@@ -8,6 +8,23 @@ import { NextButton } from '@/components';
 
 export const MountainFrame: React.FC = () => {
   const [isClicked, setIsClicked] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isLaptop, setIsLaptop] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      setIsMobile(width <= 768);
+      setIsLaptop(width > 768 && width <= 1440);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const handleSectionClick = () => {
     if (!isClicked) {
@@ -23,10 +40,12 @@ export const MountainFrame: React.FC = () => {
           className={styles.imageMotion}
           animate={
             isClicked
-              ? {
-                  scale: 1.2,
-                  translateY: -250,
-                }
+              ? isMobile
+                ? { translateX: '-25%' }
+                : {
+                    scale: 1.1,
+                    translateY: isLaptop ? -150 : -250,
+                  }
               : {}
           }
           transition={{ duration: 2, ease: 'easeInOut' }}
@@ -52,8 +71,8 @@ export const MountainFrame: React.FC = () => {
           animate={
             isClicked
               ? {
-                  x: [0, 350],
-                  y: [0, -550],
+                  x: isMobile ? [0, 15] : isLaptop ? [0, 300] : [0, 350],
+                  y: isMobile ? [0, -200] : isLaptop ? [0, -350] : [0, -485],
                   rotate: [0, -15],
                 }
               : {}
@@ -67,13 +86,14 @@ export const MountainFrame: React.FC = () => {
             alt="Magnus"
           />
         </motion.div>
+
         {/* Text and button */}
         <motion.div
           className={styles.descriptionWrapper}
           animate={
             isClicked
               ? {
-                  y: 250,
+                  y: isMobile ? 350 : isLaptop ? 200 : 250,
                 }
               : {}
           }

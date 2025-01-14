@@ -7,18 +7,40 @@
 }
 
 .imageMotion {
-  @apply absolute top-0 left-0 w-[130%] h-[130%] transform origin-bottom;
+  @apply absolute top-0 left-0 transform origin-bottom;
+
+  @media (max-width: 768px) {
+    width: 300vw;
+    height: 120%;
+    right: -100vw;
+  }
+
+  @media (min-width: 769px) and (max-width: 1440px) {
+    @apply w-[125%] h-[125%];
+  }
+
+  @media (min-width: 1441px) {
+    @apply w-[130%] h-[145%];
+  }
 }
 
 .imageContainer {
   @apply absolute top-0 left-0 w-full h-full overflow-hidden;
+
+  @media (max-width: 768px) {
+    overflow: visible;
+  }
 }
 
 .capybaraWrapper {
-  @apply absolute z-[1] left-[15%] bottom-[25%];
+  @apply absolute z-[1] left-[15%] bottom-[17%];
 
-  @media (max-width: 768px) {
-    @apply bottom-[40%] left-[5%];
+  @media (max-width: 1200px) {
+    @apply absolute left-[10%] bottom-[15%];
+  }
+
+  @media (max-width: 1440px) {
+    @apply left-[12%] bottom-[25%];
   }
 }
 
@@ -26,16 +48,24 @@
   @apply absolute z-[2] left-[47%] top-[26%] transform translate-x-[-50%] translate-y-[-100%];
 
   @media (max-width: 768px) {
-    @apply top-[15%] w-[40px] h-auto;
+    @apply top-[20%] w-[40px] h-auto;
   }
 
-  @media (min-width: 769px) {
-    @apply w-[64px] h-auto;
+  @media (max-width: 1440px) {
+    @apply top-[27%] left-[45%] w-[50px] h-auto;
   }
 }
 
 .descriptionWrapper {
-  @apply absolute top-[20%] right-[5%] 2xl:right-[17%] flex flex-col items-center md:items-end max-w-[360px] gap-[24px] md:gap-[40px] z-[10] font-radioCanada;
+  @apply absolute top-[20%] right-[5%] md:right-[10%] 2xl:right-[17%] flex flex-col items-center md:items-end max-w-[360px] gap-[24px] md:gap-[40px] z-[10] font-radioCanada;
+
+  @media (max-width: 768px) {
+    @apply top-[25%];
+  }
+
+  @media (max-width: 1440px) {
+    @apply top-[22%];
+  }
 }
 
 .descriptionText {
