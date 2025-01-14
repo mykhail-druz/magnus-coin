@@ -4,22 +4,30 @@
 
 .image {
   @apply absolute w-full h-[350vh] top-[50%] left-0 z-[2];
+
+  @media (max-width: 768px) {
+    @apply w-[150vw] h-[200vh] top-[57%];
+  }
 }
 
 .capybara {
   @apply absolute left-[20%] bottom-[10%] z-[3];
+
+  @media (max-width: 768px) {
+    @apply left-[5%] bottom-[-20%];
+  }
 }
 
 .descWrapper {
   @apply relative flex flex-col gap-[56px] z-[1000];
 }
 
-.descContainer {
-  @apply flex flex-col gap-[16px];
+.socialContainer {
+  @apply flex flex-col md:flex-row gap-[16px] md:gap-[54px];
 }
 
 .descTitle {
-  @apply font-radioCanada font-[700]  text-secondaryText text-[40px] leading-[52px];
+  @apply font-radioCanada font-[700] text-secondaryText text-[40px] leading-[52px];
 }
 
 .descText {
