@@ -27,7 +27,7 @@
 }
 
 .socialContainer {
-  @apply flex flex-row gap-[54px];
+  @apply flex flex-col md:flex-row gap-[16px] md:gap-[54px];
 }
 
 .socialBlock {
