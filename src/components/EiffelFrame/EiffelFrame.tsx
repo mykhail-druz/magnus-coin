@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
@@ -7,6 +7,23 @@ import styles from './EiffelFrame.module.scss';
 
 export const EiffelFrame: React.FC = () => {
   const [isClicked, setIsClicked] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isLaptop, setIsLaptop] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      setIsMobile(width <= 768);
+      setIsLaptop(width > 768 && width <= 1440);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const handleSectionClick = () => {
     if (!isClicked) {
@@ -42,13 +59,21 @@ export const EiffelFrame: React.FC = () => {
         </motion.div>
         <motion.div
           className={styles.capybaraWrapper}
-          initial={{ x: 0, y: 0, rotate: -70 }}
+          initial={{
+            x: isMobile ? -50 : isLaptop ? 10 : 0,
+            y: isMobile ? -50 : isLaptop ? -20 : 0,
+            rotate: isMobile ? -50 : isLaptop ? -75 : -70,
+          }}
           animate={
             isClicked
               ? {
-                  x: [0, 65],
-                  y: [0, -400],
-                  rotate: [-70, -75],
+                  x: isMobile ? [0, 65] : isLaptop ? [0, 40] : [0, 65],
+                  y: isMobile ? [0, -250] : isLaptop ? [0, -300] : [0, -400],
+                  rotate: isMobile
+                    ? [-60, -75]
+                    : isLaptop
+                      ? [-65, -75]
+                      : [-70, -75],
                 }
               : {}
           }
