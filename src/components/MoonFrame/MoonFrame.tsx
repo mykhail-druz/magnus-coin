@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, useMotionValue } from 'framer-motion';
 import Image from 'next/image';
 
@@ -7,6 +7,23 @@ import styles from './MoonFrame.module.scss';
 
 export const MoonFrame: React.FC = () => {
   const [isClicked, setIsClicked] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isLaptop, setIsLaptop] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      setIsMobile(width <= 768);
+      setIsLaptop(width > 768 && width <= 1440);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   // Initial positions and rotation for the capybara
   const startX = 0;
@@ -27,9 +44,9 @@ export const MoonFrame: React.FC = () => {
     const points = 200; // Number of animation steps for smoothness
 
     // Final positions and arc height for the trajectory
-    const finalX = 1250;
-    const finalY = 0;
-    const arcHeight = 300;
+    const finalX = isMobile ? 200 : isLaptop ? 810 : 1250;
+    const finalY = isMobile ? 0 : isLaptop ? 0 : 0;
+    const arcHeight = isMobile ? 50 : isLaptop ? 170 : 290;
 
     // Arrays to store values for x, y, and rotation during animation
     const xValues: number[] = [];
@@ -40,10 +57,10 @@ export const MoonFrame: React.FC = () => {
       const t = i / points; // Progress from 0 to 1
 
       // Linear movement along x-axis
-      const newX = 0 + (finalX - 0) * t;
+      const newX = finalX * t;
 
       // Arc movement along y-axis
-      const newY = 0 + (finalY - 0) * t;
+      const newY = finalY * t;
       const arcOffset = -arcHeight * Math.sin(Math.PI * t); // Arc offset based on sine
       const totalY = newY + arcOffset;
 
@@ -76,9 +93,16 @@ export const MoonFrame: React.FC = () => {
       <motion.div className={styles.imageWrapper}>
         <motion.div
           className={styles.imageMotion}
-          animate={isClicked ? { y: 300, scale: 1.1 } : {}}
-          initial={{ y: 0 }}
-          transition={{ duration: 3, ease: 'easeInOut' }}
+          animate={
+            isClicked
+              ? {
+                  y: isMobile ? 0 : isLaptop ? 200 : 300,
+                  scale: isMobile ? 1 : isLaptop ? 1.05 : 1.1,
+                }
+              : { scale: isMobile ? 1 : 1 }
+          }
+          initial={{ y: 0, scale: 1 }}
+          transition={{ duration: 2, ease: 'easeInOut' }}
         >
           <div className={styles.imageContainer}>
             <Image
@@ -92,6 +116,10 @@ export const MoonFrame: React.FC = () => {
           {/* Capybara animation */}
           <motion.div
             className={styles.capybaraWrapper}
+            initial={{
+              top: isMobile ? '20%' : isLaptop ? '18%' : '17%',
+              left: isMobile ? '-100%' : isLaptop ? '14%' : '14.5%',
+            }}
             style={{ x, y, rotate }}
           >
             <Image

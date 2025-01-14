@@ -10,6 +10,14 @@
   @apply absolute top-0 left-0 w-full h-[175%] transform;
 
   transform-origin: center center;
+
+  @media (max-width: 768px) {
+    @apply top-[30%] left-0;
+  }
+
+  @media (max-width: 1440px) {
+    @apply w-[100%] h-[175%];
+  }
 }
 
 .imageContainer {
@@ -17,5 +25,20 @@
 }
 
 .capybaraWrapper {
-  @apply absolute z-[2] top-[17%] left-[14.5%];
+  @apply absolute z-[2];
+
+  @media (max-width: 768px) {
+    top: 20%;
+    left: -200%;
+  }
+
+  @media (max-width: 1440px) {
+    top: 18%;
+    left: 14%;
+  }
+
+  @media (min-width: 1441px) {
+    top: 17%;
+    left: 14.5%;
+  }
 }

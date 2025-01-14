@@ -19,11 +19,9 @@
 
   @media (max-width: 768px) {
     @apply bottom-[25%] left-[11%];
-    // Положение для мобильных
   }
 
   @media (max-width: 1440px) and (min-width: 769px) {
     @apply bottom-[38%] left-[37%];
-    // Положение для экранов 1440px
   }
 }
