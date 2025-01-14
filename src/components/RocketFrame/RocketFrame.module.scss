@@ -8,6 +8,9 @@
 
 .imageMotion {
   @apply absolute top-[-125%] left-0 w-full h-[350%];
+  @media (max-width: 768px) {
+    @apply absolute top-[-50%] left-[-20%] w-[130%] h-[200%];
+  }
 }
 
 .imageContainer {
@@ -16,4 +19,12 @@
 
 .capybaraWrapper {
   @apply absolute z-[1] bottom-[25%] left-[35%];
+
+  @media (max-width: 768px) {
+    @apply bottom-[10%] left-[3%];
+  }
+
+  @media (max-width: 1440px) and (min-width: 769px) {
+    @apply bottom-[28%] left-[33%];
+  }
 }

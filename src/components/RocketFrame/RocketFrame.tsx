@@ -1,18 +1,36 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 import styles from './RocketFrame.module.scss';
-import Image from 'next/image';
 
 export const RocketFrame: React.FC = () => {
   const [isClicked, setIsClicked] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isLaptop, setIsLaptop] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      setIsMobile(width <= 768);
+      setIsLaptop(width > 768 && width <= 1440);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const handleSectionClick = () => {
     if (!isClicked) {
       setIsClicked(true);
     }
   };
+
   return (
     <section className={styles.section} onClick={handleSectionClick}>
       <motion.div className={styles.imageWrapper}>
@@ -21,7 +39,7 @@ export const RocketFrame: React.FC = () => {
           animate={
             isClicked
               ? {
-                  y: 350,
+                  y: isMobile ? 200 : isLaptop ? 300 : 350,
                 }
               : {}
           }
@@ -41,12 +59,16 @@ export const RocketFrame: React.FC = () => {
         </motion.div>
         <motion.div
           className={styles.capybaraWrapper}
-          initial={{ x: 0, y: 0, rotate: -90 }}
+          initial={{
+            x: isMobile ? 0 : isLaptop ? -10 : 0,
+            y: isMobile ? -50 : isLaptop ? -30 : 0,
+            rotate: -90,
+          }}
           animate={
             isClicked
               ? {
-                  x: [0, 0],
-                  y: [0, -350],
+                  x: isMobile ? [0, 0] : isLaptop ? [0, 0] : [0, 0],
+                  y: isMobile ? [0, -400] : isLaptop ? [0, -250] : [0, -350],
                 }
               : {}
           }
