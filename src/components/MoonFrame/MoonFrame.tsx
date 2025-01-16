@@ -10,20 +10,6 @@ export const MoonFrame: React.FC = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isLaptop, setIsLaptop] = useState(false);
 
-  const initialPositions = {
-    mobile: { x: -200, y: 0, rotate: -30 },
-    laptop: { x: 10, y: 0, rotate: -30 },
-    desktop: { x: 0, y: 0, rotate: -30 },
-  };
-
-  const [startX, setStartX] = useState(0);
-  const [startY, setStartY] = useState(0);
-  const [startRotate, setStartRotate] = useState(-30);
-
-  const x = useMotionValue(startX);
-  const y = useMotionValue(startY);
-  const rotate = useMotionValue(startRotate);
-
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
@@ -39,26 +25,10 @@ export const MoonFrame: React.FC = () => {
     };
   }, []);
 
-  // Update initial positions for motion values
-  useEffect(() => {
-    if (isMobile) {
-      setStartX(initialPositions.mobile.x);
-      setStartY(initialPositions.mobile.y);
-      setStartRotate(initialPositions.mobile.rotate);
-    } else if (isLaptop) {
-      setStartX(initialPositions.laptop.x);
-      setStartY(initialPositions.laptop.y);
-      setStartRotate(initialPositions.laptop.rotate);
-    } else {
-      setStartX(initialPositions.desktop.x);
-      setStartY(initialPositions.desktop.y);
-      setStartRotate(initialPositions.desktop.rotate);
-    }
-
-    x.set(startX);
-    y.set(startY);
-    rotate.set(startRotate);
-  }, [isMobile, isLaptop, x, y, rotate, startX, startY, startRotate]);
+  // Motion values for animation
+  const x = useMotionValue(0); // Default X position
+  const y = useMotionValue(0);
+  const rotate = useMotionValue(-30);
 
   const handleSectionClick = () => {
     if (isClicked) return;
@@ -67,9 +37,11 @@ export const MoonFrame: React.FC = () => {
     const duration = 2.5; // Animation duration in seconds
     const points = 200; // Number of animation steps for smoothness
 
-    const finalX = isMobile ? 250 : isLaptop ? 810 : 1250;
-    const finalY = 0;
-    const arcHeight = isMobile ? 50 : isLaptop ? 170 : 290;
+    const finalX = isMobile ? 390 : isLaptop ? 810 : 1250;
+    const finalY = isMobile ? -10 : 0;
+    const arcHeight = isMobile ? 30 : isLaptop ? 170 : 290;
+
+    const finalRotate = isMobile ? 50 : 85;
 
     const xValues: number[] = [];
     const yValues: number[] = [];
@@ -85,7 +57,7 @@ export const MoonFrame: React.FC = () => {
 
       xValues.push(newX);
       yValues.push(totalY);
-      rotateValues.push(-30 + t * 85);
+      rotateValues.push(-30 + t * finalRotate);
     }
 
     let currentStep = 0;
@@ -132,6 +104,11 @@ export const MoonFrame: React.FC = () => {
           {/* Capybara animation */}
           <motion.div
             className={styles.capybaraWrapper}
+            initial={{
+              x: 0,
+              y: 0,
+              rotate: -30,
+            }}
             style={{ x, y, rotate }}
           >
             <Image

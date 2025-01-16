@@ -29,7 +29,7 @@ export const NextButton: React.FC<NextButtonProps> = ({ isClicked }) => {
           </Link>
         </motion.div>
       )}
-      <Link href="/" className={styles.mobileOnly}>
+      <Link href="/#meet" className={styles.mobileOnly} passHref>
         <ArrowDown />
       </Link>
     </motion.div>
