@@ -1,5 +1,5 @@
 .section {
-  @apply relative bg-tokenomicsBg h-screen justify-center flex overflow-hidden;
+  @apply relative bg-tokenomicsBg w-[100vw] h-screen justify-center flex overflow-hidden;
 }
 
 .mainContainer {
@@ -7,7 +7,7 @@
 }
 
 .title {
-  @apply font-radioCanada font-[700] text-secondaryText text-[40px] leading-[52px] z-[2];
+  @apply font-radioCanada font-[700] text-secondaryText text-[40px] leading-[52px] z-[2] text-center md:text-start;
 }
 
 .cardsBlock {
