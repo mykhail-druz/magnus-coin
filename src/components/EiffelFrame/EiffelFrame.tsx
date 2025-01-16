@@ -1,14 +1,15 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 import styles from './EiffelFrame.module.scss';
 
 export const EiffelFrame: React.FC = () => {
-  const [isClicked, setIsClicked] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isLaptop, setIsLaptop] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -25,19 +26,33 @@ export const EiffelFrame: React.FC = () => {
     };
   }, []);
 
-  const handleSectionClick = () => {
-    if (!isClicked) {
-      setIsClicked(true);
-    }
-  };
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      {
+        threshold: 0.8,
+      }
+    );
+
+    const currentRef = sectionRef.current;
+    if (currentRef) observer.observe(currentRef);
+
+    return () => {
+      if (currentRef) observer.unobserve(currentRef);
+    };
+  }, []);
 
   return (
-    <section className={styles.section} onClick={handleSectionClick}>
+    <section className={styles.section} ref={sectionRef}>
       <motion.div className={styles.imageWrapper}>
         <motion.div
           className={styles.imageMotion}
           animate={
-            isClicked
+            isVisible
               ? {
                   y: 150,
                 }
@@ -65,7 +80,7 @@ export const EiffelFrame: React.FC = () => {
             rotate: isMobile ? -50 : isLaptop ? -75 : -70,
           }}
           animate={
-            isClicked
+            isVisible
               ? {
                   x: isMobile ? [0, 65] : isLaptop ? [0, 40] : [0, 65],
                   y: isMobile ? [0, -250] : isLaptop ? [0, -300] : [0, -400],

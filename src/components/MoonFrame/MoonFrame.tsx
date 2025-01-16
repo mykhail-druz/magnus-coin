@@ -1,14 +1,15 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion, useMotionValue } from 'framer-motion';
 import Image from 'next/image';
 
 import styles from './MoonFrame.module.scss';
 
 export const MoonFrame: React.FC = () => {
-  const [isClicked, setIsClicked] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isLaptop, setIsLaptop] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -25,22 +26,38 @@ export const MoonFrame: React.FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.8 }
+    );
+
+    const currentRef = sectionRef.current;
+    if (currentRef) observer.observe(currentRef);
+
+    return () => {
+      if (currentRef) observer.unobserve(currentRef);
+    };
+  }, []);
+
   // Motion values for animation
-  const x = useMotionValue(0); // Default X position
+  const x = useMotionValue(0);
   const y = useMotionValue(0);
   const rotate = useMotionValue(-30);
 
-  const handleSectionClick = () => {
-    if (isClicked) return;
-    setIsClicked(true);
+  useEffect(() => {
+    if (!isVisible) return;
 
-    const duration = 2.5; // Animation duration in seconds
-    const points = 200; // Number of animation steps for smoothness
+    const duration = isMobile ? 1.5 : 2.5;
+    const points = 200;
 
     const finalX = isMobile ? 390 : isLaptop ? 810 : 1250;
     const finalY = isMobile ? -10 : 0;
     const arcHeight = isMobile ? 30 : isLaptop ? 170 : 290;
-
     const finalRotate = isMobile ? 50 : 85;
 
     const xValues: number[] = [];
@@ -74,15 +91,15 @@ export const MoonFrame: React.FC = () => {
       },
       (duration * 1000) / points
     );
-  };
+  }, [isVisible, isMobile, isLaptop, x, y, rotate]);
 
   return (
-    <section className={styles.section} onClick={handleSectionClick}>
+    <section className={styles.section} ref={sectionRef}>
       <motion.div className={styles.imageWrapper}>
         <motion.div
           className={styles.imageMotion}
           animate={
-            isClicked
+            isVisible
               ? {
                   y: isMobile ? 0 : isLaptop ? 200 : 300,
                   scale: isMobile ? 1 : isLaptop ? 1.05 : 1.1,
@@ -101,7 +118,7 @@ export const MoonFrame: React.FC = () => {
               style={{ objectFit: 'cover' }}
             />
           </div>
-          {/* Capybara animation */}
+          {/* Capybara */}
           <motion.div
             className={styles.capybaraWrapper}
             initial={{

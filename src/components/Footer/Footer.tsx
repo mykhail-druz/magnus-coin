@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
@@ -9,9 +9,10 @@ import XBig from '@/icons/XBig.svg';
 import TelegramBig from '@/icons/TelegramBig.svg';
 
 export const Footer: React.FC = () => {
-  const [isClicked, setIsClicked] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isLaptop, setIsLaptop] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -27,19 +28,35 @@ export const Footer: React.FC = () => {
     };
   }, []);
 
-  const handleSectionClick = () => {
-    setIsClicked(true);
-  };
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      {
+        threshold: 0.8,
+      }
+    );
+
+    const currentRef = sectionRef.current;
+    if (currentRef) observer.observe(currentRef);
+
+    return () => {
+      if (currentRef) observer.unobserve(currentRef);
+    };
+  }, []);
 
   return (
-    <footer className={styles.section} onClick={handleSectionClick}>
+    <footer className={styles.section} ref={sectionRef}>
       <motion.div
         className={styles.image}
         initial={{
           translateY: isMobile ? '-5%' : isLaptop ? '-7%' : '-10%',
         }}
         animate={
-          isClicked
+          isVisible
             ? { translateY: isMobile ? '-20%' : isLaptop ? '-12%' : '-15%' }
             : {}
         }
@@ -61,7 +78,7 @@ export const Footer: React.FC = () => {
           rotate: -15,
         }}
         animate={
-          isClicked
+          isVisible
             ? {
                 bottom: isMobile ? '60%' : isLaptop ? '55%' : '62%',
                 translateX: isMobile ? '150%' : isLaptop ? '200%' : '250%',

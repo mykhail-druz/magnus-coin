@@ -1,14 +1,15 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
 import styles from './RocketFrame.module.scss';
 
 export const RocketFrame: React.FC = () => {
-  const [isClicked, setIsClicked] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isLaptop, setIsLaptop] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -25,19 +26,33 @@ export const RocketFrame: React.FC = () => {
     };
   }, []);
 
-  const handleSectionClick = () => {
-    if (!isClicked) {
-      setIsClicked(true);
-    }
-  };
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      {
+        threshold: 0.8,
+      }
+    );
+
+    const currentRef = sectionRef.current;
+    if (currentRef) observer.observe(currentRef);
+
+    return () => {
+      if (currentRef) observer.unobserve(currentRef);
+    };
+  }, []);
 
   return (
-    <section className={styles.section} onClick={handleSectionClick}>
+    <section className={styles.section} ref={sectionRef}>
       <motion.div className={styles.imageWrapper}>
         <motion.div
           className={styles.imageMotion}
           animate={
-            isClicked
+            isVisible
               ? {
                   y: isMobile ? 200 : isLaptop ? 300 : 350,
                 }
@@ -65,7 +80,7 @@ export const RocketFrame: React.FC = () => {
             rotate: -90,
           }}
           animate={
-            isClicked
+            isVisible
               ? {
                   x: isMobile ? [0, 0] : isLaptop ? [0, 0] : [0, 0],
                   y: isMobile ? [0, -400] : isLaptop ? [0, -250] : [0, -350],

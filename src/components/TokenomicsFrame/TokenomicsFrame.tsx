@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
@@ -8,9 +8,10 @@ import styles from './TokenomicsFrame.module.scss';
 import { Card } from '@/components';
 
 export const TokenomicsFrame: React.FC = () => {
-  const [isClicked, setIsClicked] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isLaptop, setIsLaptop] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -27,12 +28,28 @@ export const TokenomicsFrame: React.FC = () => {
     };
   }, []);
 
-  const handleSectionClick = () => {
-    setIsClicked(true);
-  };
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      {
+        threshold: 0.8,
+      }
+    );
+
+    const currentRef = sectionRef.current;
+    if (currentRef) observer.observe(currentRef);
+
+    return () => {
+      if (currentRef) observer.unobserve(currentRef);
+    };
+  }, []);
 
   return (
-    <section className={styles.section} onClick={handleSectionClick}>
+    <section className={styles.section} ref={sectionRef}>
       <div className={styles.mainContainer}>
         <h2 className={styles.title}>Tokenomics</h2>
         <div className={styles.cardsBlock}>
@@ -87,7 +104,7 @@ export const TokenomicsFrame: React.FC = () => {
           zIndex: 3,
         }}
         animate={
-          isClicked
+          isVisible
             ? { rotate: -15.45, translateY: '225%', zIndex: 2 }
             : {
                 scale: isMobile ? 0.4 : 0.9,
@@ -120,7 +137,7 @@ export const TokenomicsFrame: React.FC = () => {
         }
         initial={{ scale: isMobile ? 0.7 : 1.5, rotate: -5, translateY: '0%' }}
         animate={
-          isClicked
+          isVisible
             ? {
                 rotate: -35,
                 translateY: isMobile ? '-125%' : '125%',
@@ -152,7 +169,7 @@ export const TokenomicsFrame: React.FC = () => {
         }
         initial={{ scale: isMobile ? 0.8 : 1.4, rotate: 15, translateY: 0 }}
         animate={
-          isClicked
+          isVisible
             ? { scale: isMobile ? 0.8 : 1.4, rotate: 45, translateY: '-245%' }
             : { scale: isMobile ? 0.8 : 1.4, rotate: 15, translateY: 0 }
         }
@@ -177,7 +194,7 @@ export const TokenomicsFrame: React.FC = () => {
         }}
         initial={{ scale: isMobile ? 0.7 : 1, rotate: 20, translateY: '0%' }}
         animate={
-          isClicked
+          isVisible
             ? { scale: isMobile ? 0.7 : 1.2, rotate: -15, translateY: '100%' }
             : { scale: isMobile ? 0.7 : 1, rotate: 20, translateY: '0%' }
         }
@@ -196,7 +213,7 @@ export const TokenomicsFrame: React.FC = () => {
         style={{ top: '60vh', left: '5vw', filter: 'blur(7px)' }}
         initial={{ scale: isMobile ? 0.7 : 0.9, rotate: -10, translateY: '0%' }}
         animate={
-          isClicked
+          isVisible
             ? { scale: isMobile ? 0.7 : 1, rotate: 10, translateY: '100%' }
             : { scale: isMobile ? 0.7 : 0.9, rotate: -10, translateY: '0%' }
         }
@@ -219,7 +236,7 @@ export const TokenomicsFrame: React.FC = () => {
         }}
         initial={{ scale: isMobile ? 0.7 : 1, rotate: 15, translateY: '0%' }}
         animate={
-          isClicked
+          isVisible
             ? { scale: isMobile ? 0.7 : 1.1, rotate: 0, translateY: '100%' }
             : { scale: isMobile ? 0.7 : 1, rotate: 15, translateY: '0%' }
         }
@@ -256,7 +273,7 @@ export const TokenomicsFrame: React.FC = () => {
         }
         initial={{ scale: isMobile ? 0.7 : 1, rotate: 15, translateY: '0%' }}
         animate={
-          isClicked
+          isVisible
             ? { scale: isMobile ? 0.7 : 1.1, rotate: -10, translateY: '100%' }
             : { scale: isMobile ? 0.7 : 1, rotate: 15, translateY: '0%' }
         }

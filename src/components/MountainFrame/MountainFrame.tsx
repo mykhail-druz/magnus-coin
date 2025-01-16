@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
@@ -7,9 +7,10 @@ import styles from './MountainFrame.module.scss';
 import { NextButton } from '@/components';
 
 export const MountainFrame: React.FC = () => {
-  const [isClicked, setIsClicked] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isLaptop, setIsLaptop] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -26,20 +27,34 @@ export const MountainFrame: React.FC = () => {
     };
   }, []);
 
-  const handleSectionClick = () => {
-    if (!isClicked) {
-      setIsClicked(true);
-    }
-  };
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      {
+        threshold: 0.8,
+      }
+    );
+
+    const currentRef = sectionRef.current;
+    if (currentRef) observer.observe(currentRef);
+
+    return () => {
+      if (currentRef) observer.unobserve(currentRef);
+    };
+  }, []);
 
   return (
-    <motion.section className={styles.section} onClick={handleSectionClick}>
+    <motion.section className={styles.section} ref={sectionRef}>
       {/* Image wrapper */}
       <motion.div className={styles.imageWrapper}>
         <motion.div
           className={styles.imageMotion}
           animate={
-            isClicked
+            isVisible
               ? isMobile
                 ? { translateX: '-25%' }
                 : {
@@ -59,7 +74,7 @@ export const MountainFrame: React.FC = () => {
             />
           </div>
 
-          {/* Flag inside imageMotion */}
+          {/* Flag */}
           <div className={styles.flagWrapper}>
             <Image src="/images/flag.png" width={103} height={103} alt="Flag" />
           </div>
@@ -69,7 +84,7 @@ export const MountainFrame: React.FC = () => {
         <motion.div
           className={styles.capybaraWrapper}
           animate={
-            isClicked
+            isVisible
               ? {
                   x: isMobile ? [0, 15] : isLaptop ? [0, 300] : [0, 350],
                   y: isMobile ? [0, -200] : isLaptop ? [0, -350] : [0, -485],
@@ -91,7 +106,7 @@ export const MountainFrame: React.FC = () => {
         <motion.div
           className={styles.descriptionWrapper}
           animate={
-            isClicked
+            isVisible
               ? {
                   y: isMobile ? 350 : isLaptop ? 200 : 250,
                 }
@@ -103,7 +118,7 @@ export const MountainFrame: React.FC = () => {
             Meet <span className="text-secondaryAccent">$magnus,</span>
             <br /> the Climbing Capybara.
           </motion.h1>
-          <NextButton isClicked={isClicked} />
+          <NextButton isClicked={isVisible} />
         </motion.div>
       </motion.div>
     </motion.section>
