@@ -80,7 +80,7 @@ export const Footer: React.FC = () => {
         animate={
           isVisible
             ? {
-                bottom: isMobile ? '60%' : isLaptop ? '55%' : '62%',
+                bottom: isMobile ? '60%' : isLaptop ? '55%' : '60%',
                 translateX: isMobile ? '150%' : isLaptop ? '200%' : '250%',
               }
             : {}

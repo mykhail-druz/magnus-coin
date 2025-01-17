@@ -1,5 +1,5 @@
 .section {
-  @apply relative w-full h-[125vh] overflow-hidden bg-footerBg px-[5vw] md:px-[10vw] pt-[92px] z-[1];
+  @apply relative w-full h-[125vh] max-h-[1080px] overflow-hidden bg-footerBg px-[5vw] md:px-[10vw] pt-[92px] z-[1];
 }
 
 .image {
