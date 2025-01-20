@@ -27,7 +27,7 @@
 }
 
 .coin {
-  @apply absolute;
+  @apply absolute z-[3] md:z-[2];
 }
 
 .coin:nth-child(1) {

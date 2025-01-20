@@ -1,40 +1,23 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 
 import styles from './AboutMagnusFrame.module.scss';
 import { CallToActionButton } from '@/components';
 
 export const AboutMagnusFrame: React.FC = () => {
-  const [step, setStep] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          const interval = setInterval(() => {
-            setStep((prevStep) => {
-              if (prevStep >= 3) {
-                clearInterval(interval);
-                return prevStep;
-              }
-              return prevStep + 1;
-            });
-          }, 500);
-        }
-      },
-      { threshold: 0.8 }
-    );
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
 
-    const currentRef = sectionRef.current;
-    if (currentRef) observer.observe(currentRef);
-
-    return () => {
-      if (currentRef) observer.unobserve(currentRef);
-    };
-  }, []);
+  const step1Opacity = useTransform(scrollYProgress, [0, 0.25], [0, 1]);
+  const step2Opacity = useTransform(scrollYProgress, [0.15, 0.25], [0, 1]);
+  const step3Opacity = useTransform(scrollYProgress, [0.25, 0.5], [0, 1]);
+  const step4Opacity = useTransform(scrollYProgress, [0.35, 0.5], [0, 1]);
 
   return (
     <section className={styles.section} ref={sectionRef}>
@@ -49,52 +32,34 @@ export const AboutMagnusFrame: React.FC = () => {
         </div>
 
         <div className={styles.descBlock}>
-          {step >= 1 && (
-            <motion.h2
-              className={styles.descTitle}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
-            >
-              $magnus
-            </motion.h2>
-          )}
+          <motion.h2
+            className={styles.descTitle}
+            style={{ opacity: step1Opacity }}
+          >
+            $magnus
+          </motion.h2>
 
-          {step >= 2 && (
-            <motion.p
-              className={styles.descText}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, ease: 'easeOut', delay: 0.2 }}
-            >
-              Adopted to be nothing more than a chill land mammal, magnus has
-              proven to be gifted in{' '}
-              <span className="text-primaryAccentText">#theclimb</span>. Follow
-              him in his journey as he seeks higher highs. There is no
-              structure, event, or market that can keep him from mooning.
-            </motion.p>
-          )}
+          <motion.p
+            className={styles.descText}
+            style={{ opacity: step2Opacity }}
+          >
+            Adopted to be nothing more than a chill land mammal, magnus has
+            proven to be gifted in{' '}
+            <span className="text-primaryAccentText">#theclimb</span>. Follow
+            him in his journey as he seeks higher highs. There is no structure,
+            event, or market that can keep him from mooning.
+          </motion.p>
 
-          {step >= 2 && (
-            <motion.p
-              className={styles.descText}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, ease: 'easeOut', delay: 0.4 }}
-            >
-              Launching soon in Jan 2025!
-            </motion.p>
-          )}
+          <motion.p
+            className={styles.descText}
+            style={{ opacity: step3Opacity }}
+          >
+            Launching soon in Jan 2025!
+          </motion.p>
 
-          {step >= 3 && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
-            >
-              <CallToActionButton title={'Follow $magnus'} href={'/'} />
-            </motion.div>
-          )}
+          <motion.div style={{ opacity: step4Opacity }}>
+            <CallToActionButton title="Follow $magnus" href="/" />
+          </motion.div>
         </div>
       </div>
     </section>

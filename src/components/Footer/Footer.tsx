@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 import styles from './Footer.module.scss';
 import Link from 'next/link';
@@ -9,10 +9,8 @@ import XBig from '@/icons/XBig.svg';
 import TelegramBig from '@/icons/TelegramBig.svg';
 
 export const Footer: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isLaptop, setIsLaptop] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -22,44 +20,49 @@ export const Footer: React.FC = () => {
     };
     handleResize();
     window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      {
-        threshold: 0.8,
-      }
-    );
+  const sectionRef = useRef<HTMLElement>(null);
 
-    const currentRef = sectionRef.current;
-    if (currentRef) observer.observe(currentRef);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'center start'],
+  });
 
-    return () => {
-      if (currentRef) observer.unobserve(currentRef);
-    };
-  }, []);
+  const imageStart = isMobile ? -10 : isLaptop ? -7 : -10;
+  const imageEnd = isMobile ? -20 : isLaptop ? -12 : -15;
+
+  const imageTranslate = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [`${imageStart}%`, `${imageEnd}%`]
+  );
+
+  const bottomStart = isMobile ? 30 : isLaptop ? 28 : 32;
+  const bottomEnd = isMobile ? 60 : isLaptop ? 55 : 60;
+  const capyBottom = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [`${bottomStart}%`, `${bottomEnd}%`]
+  );
+
+  const xStart = isMobile ? -5 : isLaptop ? -7 : -10;
+  const xEnd = isMobile ? 150 : isLaptop ? 200 : 250;
+  const capyX = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [`${xStart}%`, `${xEnd}%`]
+  );
 
   return (
     <footer className={styles.section} ref={sectionRef}>
       <motion.div
         className={styles.image}
-        initial={{
-          translateY: isMobile ? '-5%' : isLaptop ? '-7%' : '-10%',
+        style={{
+          y: imageTranslate,
+          willChange: 'transform',
         }}
-        animate={
-          isVisible
-            ? { translateY: isMobile ? '-20%' : isLaptop ? '-12%' : '-15%' }
-            : {}
-        }
         transition={{ duration: 2, ease: 'easeInOut' }}
       >
         <Image
@@ -72,19 +75,12 @@ export const Footer: React.FC = () => {
 
       <motion.div
         className={styles.capybara}
-        initial={{
-          bottom: isMobile ? '30%' : isLaptop ? '28%' : '32%',
-          translateX: isMobile ? '-5%' : isLaptop ? '-7%' : '-10%',
+        style={{
+          bottom: capyBottom,
+          x: capyX,
           rotate: -15,
+          willChange: 'transform',
         }}
-        animate={
-          isVisible
-            ? {
-                bottom: isMobile ? '60%' : isLaptop ? '55%' : '60%',
-                translateX: isMobile ? '150%' : isLaptop ? '200%' : '250%',
-              }
-            : {}
-        }
         transition={{ duration: 2, ease: 'easeInOut' }}
       >
         <Image

@@ -1,15 +1,33 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 
 import styles from './RocketFrame.module.scss';
 
 export const RocketFrame: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isLaptop, setIsLaptop] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+  
+  const yCapybara = useTransform(
+    scrollYProgress,
+    [0, 1],
+    isMobile ? [0, -400] : isLaptop ? [0, -250] : [0, -350]
+  );
+  const xCapybara = useTransform(scrollYProgress, [0, 1], [0, 0]);
+  const rotateCapybara = useTransform(scrollYProgress, [0, 1], [-90, -90]);
+
+  const yImage = useTransform(
+    scrollYProgress,
+    [0, 1],
+    isMobile ? [0, 200] : isLaptop ? [0, 300] : [0, 350]
+  );
 
   useEffect(() => {
     const handleResize = () => {
@@ -26,39 +44,14 @@ export const RocketFrame: React.FC = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      {
-        threshold: 0.8,
-      }
-    );
-
-    const currentRef = sectionRef.current;
-    if (currentRef) observer.observe(currentRef);
-
-    return () => {
-      if (currentRef) observer.unobserve(currentRef);
-    };
-  }, []);
-
   return (
-    <section className={styles.section} ref={sectionRef}>
+    <motion.section className={styles.section} ref={sectionRef}>
       <motion.div className={styles.imageWrapper}>
         <motion.div
           className={styles.imageMotion}
-          animate={
-            isVisible
-              ? {
-                  y: isMobile ? 200 : isLaptop ? 300 : 350,
-                }
-              : {}
-          }
-          transition={{ duration: 2, ease: 'easeInOut' }}
+          style={{
+            y: yImage,
+          }}
         >
           <div className={styles.imageContainer}>
             <Image
@@ -72,22 +65,14 @@ export const RocketFrame: React.FC = () => {
             />
           </div>
         </motion.div>
+
         <motion.div
           className={styles.capybaraWrapper}
-          initial={{
-            x: isMobile ? 0 : isLaptop ? -10 : 0,
-            y: isMobile ? -50 : isLaptop ? -30 : 0,
-            rotate: -90,
+          style={{
+            x: xCapybara,
+            y: yCapybara,
+            rotate: rotateCapybara,
           }}
-          animate={
-            isVisible
-              ? {
-                  x: isMobile ? [0, 0] : isLaptop ? [0, 0] : [0, 0],
-                  y: isMobile ? [0, -400] : isLaptop ? [0, -250] : [0, -350],
-                }
-              : {}
-          }
-          transition={{ duration: 2, ease: 'easeInOut' }}
         >
           <Image
             src="/images/magnus.png"
@@ -97,6 +82,6 @@ export const RocketFrame: React.FC = () => {
           />
         </motion.div>
       </motion.div>
-    </section>
+    </motion.section>
   );
 };

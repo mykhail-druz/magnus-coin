@@ -45,7 +45,7 @@
 }
 
 .flagWrapper {
-  @apply absolute z-[2] left-[47%] top-[26%] transform translate-x-[-50%] translate-y-[-100%];
+  @apply absolute z-[2] left-[47%] top-[28%] transform translate-x-[-50%] translate-y-[-100%];
 
   @media (max-width: 768px) {
     @apply top-[20%] w-[40px] h-auto;
@@ -57,7 +57,7 @@
 }
 
 .descriptionWrapper {
-  @apply absolute top-[20%] right-[5%] md:right-[10%] 2xl:right-[17%] flex flex-col items-center md:items-end max-w-[360px] gap-[24px] md:gap-[40px] z-[10] font-radioCanada;
+  @apply absolute top-[20%] right-[5%] md:right-[10%] 2xl:right-[15%] flex flex-col items-center md:items-end max-w-[360px] gap-[24px] md:gap-[40px] z-[10] font-radioCanada;
 
   @media (max-width: 768px) {
     @apply top-[25%];

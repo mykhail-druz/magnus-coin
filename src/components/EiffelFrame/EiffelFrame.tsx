@@ -1,15 +1,37 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 
 import styles from './EiffelFrame.module.scss';
 
 export const EiffelFrame: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isLaptop, setIsLaptop] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const xCapybara = useTransform(
+    scrollYProgress,
+    [0, 1],
+    isMobile ? [30, 50] : isLaptop ? [10, 40] : [10, 65]
+  );
+  const yCapybara = useTransform(
+    scrollYProgress,
+    [0, 1],
+    isMobile ? [0, -200] : isLaptop ? [0, -300] : [0, -400]
+  );
+  const rotateCapybara = useTransform(
+    scrollYProgress,
+    [0, 1],
+    isMobile ? [-50, -75] : isLaptop ? [-65, -75] : [-70, -75]
+  );
+
+  const yImage = useTransform(scrollYProgress, [0, 1], [0, 150]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -26,39 +48,14 @@ export const EiffelFrame: React.FC = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      {
-        threshold: 0.8,
-      }
-    );
-
-    const currentRef = sectionRef.current;
-    if (currentRef) observer.observe(currentRef);
-
-    return () => {
-      if (currentRef) observer.unobserve(currentRef);
-    };
-  }, []);
-
   return (
-    <section className={styles.section} ref={sectionRef}>
+    <motion.section className={styles.section} ref={sectionRef}>
       <motion.div className={styles.imageWrapper}>
         <motion.div
           className={styles.imageMotion}
-          animate={
-            isVisible
-              ? {
-                  y: 150,
-                }
-              : {}
-          }
-          transition={{ duration: 2, ease: 'easeInOut' }}
+          style={{
+            y: yImage,
+          }}
         >
           <div className={styles.imageContainer}>
             <Image
@@ -72,27 +69,14 @@ export const EiffelFrame: React.FC = () => {
             />
           </div>
         </motion.div>
+
         <motion.div
           className={styles.capybaraWrapper}
-          initial={{
-            x: isMobile ? -50 : isLaptop ? 10 : 0,
-            y: isMobile ? -50 : isLaptop ? -20 : 0,
-            rotate: isMobile ? -50 : isLaptop ? -75 : -70,
+          style={{
+            x: xCapybara,
+            y: yCapybara,
+            rotate: rotateCapybara,
           }}
-          animate={
-            isVisible
-              ? {
-                  x: isMobile ? [0, 65] : isLaptop ? [0, 40] : [0, 65],
-                  y: isMobile ? [0, -250] : isLaptop ? [0, -300] : [0, -400],
-                  rotate: isMobile
-                    ? [-60, -75]
-                    : isLaptop
-                      ? [-65, -75]
-                      : [-70, -75],
-                }
-              : {}
-          }
-          transition={{ duration: 2, ease: 'easeInOut' }}
         >
           <Image
             src="/images/magnus.png"
@@ -102,6 +86,6 @@ export const EiffelFrame: React.FC = () => {
           />
         </motion.div>
       </motion.div>
-    </section>
+    </motion.section>
   );
 };
