@@ -11,7 +11,7 @@
 }
 
 .capybara {
-  @apply absolute left-[20%] bottom-[10%] z-[3];
+  @apply absolute left-[14%] bottom-[10%] z-[3];
 
   @media (max-width: 768px) {
     @apply left-[5%] bottom-[-20%];

@@ -40,7 +40,7 @@ export const Footer: React.FC = () => {
   );
 
   const bottomStart = isMobile ? 30 : isLaptop ? 28 : 32;
-  const bottomEnd = isMobile ? 60 : isLaptop ? 55 : 60;
+  const bottomEnd = isMobile ? 60 : isLaptop ? 55 : 75;
   const capyBottom = useTransform(
     scrollYProgress,
     [0, 1],
@@ -48,7 +48,7 @@ export const Footer: React.FC = () => {
   );
 
   const xStart = isMobile ? -5 : isLaptop ? -7 : -10;
-  const xEnd = isMobile ? 150 : isLaptop ? 200 : 250;
+  const xEnd = isMobile ? 150 : isLaptop ? 200 : 425;
   const capyX = useTransform(
     scrollYProgress,
     [0, 1],
