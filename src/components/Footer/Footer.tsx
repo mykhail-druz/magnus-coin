@@ -4,13 +4,17 @@ import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 import styles from './Footer.module.scss';
-import Link from 'next/link';
 import XBig from '@/icons/XBig.svg';
 import TelegramBig from '@/icons/TelegramBig.svg';
+import { ComingSoon } from '@/components';
 
 export const Footer: React.FC = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isLaptop, setIsLaptop] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -56,55 +60,58 @@ export const Footer: React.FC = () => {
   );
 
   return (
-    <footer className={styles.section} ref={sectionRef}>
-      <motion.div
-        className={styles.image}
-        style={{
-          y: imageTranslate,
-          willChange: 'transform',
-        }}
-        transition={{ duration: 2, ease: 'easeInOut' }}
-      >
-        <Image
-          src="/images/footer.webp"
-          fill
-          style={{ objectFit: 'cover' }}
-          alt="Mountains"
-        />
-      </motion.div>
+    <>
+      <footer className={styles.section} ref={sectionRef}>
+        <motion.div
+          className={styles.image}
+          style={{
+            y: imageTranslate,
+            willChange: 'transform',
+          }}
+          transition={{ duration: 2, ease: 'easeInOut' }}
+        >
+          <Image
+            src="/images/footer.webp"
+            fill
+            style={{ objectFit: 'cover' }}
+            alt="Mountains"
+          />
+        </motion.div>
 
-      <motion.div
-        className={styles.capybara}
-        style={{
-          bottom: capyBottom,
-          x: capyX,
-          rotate: -15,
-          willChange: 'transform',
-        }}
-        transition={{ duration: 2, ease: 'easeInOut' }}
-      >
-        <Image
-          src="/images/magnus.png"
-          width={103}
-          height={103}
-          alt="Capybara Magnus"
-        />
-      </motion.div>
+        <motion.div
+          className={styles.capybara}
+          style={{
+            bottom: capyBottom,
+            x: capyX,
+            rotate: -15,
+            willChange: 'transform',
+          }}
+          transition={{ duration: 2, ease: 'easeInOut' }}
+        >
+          <Image
+            src="/images/magnus.png"
+            width={103}
+            height={103}
+            alt="Capybara Magnus"
+          />
+        </motion.div>
 
-      <div className={styles.descWrapper}>
-        <div className={styles.descContainer}>
-          <h3 className={styles.descTitle}>Keep on Climbing</h3>
-          <p className={styles.descText}>© Capylabs 2024 </p>
+        <div className={styles.descWrapper}>
+          <div className={styles.descContainer}>
+            <h3 className={styles.descTitle}>Keep on Climbing</h3>
+            <p className={styles.descText}>© Capylabs 2024 </p>
+          </div>
+          <div className={styles.socialContainer}>
+            <button onClick={openModal} className={styles.socialBlock}>
+              <XBig /> <p className={styles.socialText}>Follow us</p>
+            </button>
+            <button onClick={openModal} className={styles.socialBlock}>
+              <TelegramBig /> <p className={styles.socialText}>Telegram</p>
+            </button>
+          </div>
         </div>
-        <div className={styles.socialContainer}>
-          <Link href="/" className={styles.socialBlock}>
-            <XBig /> <p className={styles.socialText}>Follow us</p>
-          </Link>
-          <Link href="/" className={styles.socialBlock}>
-            <TelegramBig /> <p className={styles.socialText}>Telegram</p>
-          </Link>
-        </div>
-      </div>
-    </footer>
+      </footer>
+      {isModalOpen && <ComingSoon onClose={closeModal} />}
+    </>
   );
 };

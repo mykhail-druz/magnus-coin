@@ -12,3 +12,4 @@ export * from './Footer';
 //Components
 export * from './Buttons';
 export * from './Card';
+export * from './Modals';

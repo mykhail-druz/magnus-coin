@@ -43,7 +43,7 @@ export const MeetMagnusFrame: React.FC = () => {
             <div>
               <CallToActionButton
                 title={'Watch Magnus’ Streaming'}
-                href={'/'}
+                href={'https://capytube.xyz'}
               />
             </div>
           </div>
