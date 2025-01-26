@@ -71,7 +71,7 @@ export const MountainFrame: React.FC = () => {
 
   const finalMobileTextY = 350;
   const finalLaptopTextY = 200;
-  const finalDesktopTextY = 250;
+  const finalDesktopTextY = 550;
 
   const textY = useTransform(
     scrollYProgress,
@@ -85,6 +85,9 @@ export const MountainFrame: React.FC = () => {
           : finalDesktopTextY,
     ]
   );
+
+  const buttonX = useTransform(scrollYProgress, [0, 1], ['100%', '0%']);
+  const buttonOpacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
     <motion.section className={styles.section} ref={sectionRef}>
@@ -141,10 +144,10 @@ export const MountainFrame: React.FC = () => {
           transition={{ duration: 2, ease: 'easeInOut' }}
         >
           <motion.h1 className={styles.descriptionText}>
-            Meet <span className="text-secondaryAccent">$magnus,</span>
+            Meet <span className="text-secondaryAccent">$magnus</span>,
             <br /> the Climbing Capybara.
           </motion.h1>
-          <NextButton />
+          <NextButton x={buttonX} opacity={buttonOpacity} />
         </motion.div>
       </motion.div>
     </motion.section>

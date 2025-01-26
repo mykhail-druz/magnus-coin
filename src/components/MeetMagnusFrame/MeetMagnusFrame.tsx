@@ -6,7 +6,7 @@ import { CallToActionButton } from '@/components';
 
 export const MeetMagnusFrame: React.FC = () => {
   return (
-    <section id={'meet'} className={styles.section}>
+    <section className={styles.section}>
       <div className={styles.mainContainer}>
         <h2 className={styles.title}>
           Meet Real <span className="text-primaryAccentText">$magnus</span>

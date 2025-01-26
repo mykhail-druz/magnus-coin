@@ -49,7 +49,7 @@ export const EiffelFrame: React.FC = () => {
   }, []);
 
   return (
-    <motion.section className={styles.section} ref={sectionRef}>
+    <motion.section id={'eiffel'} className={styles.section} ref={sectionRef}>
       <motion.div className={styles.imageWrapper}>
         <motion.div
           className={styles.imageMotion}

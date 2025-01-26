@@ -1,34 +1,26 @@
 import React from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, MotionValue } from 'framer-motion';
 
 import styles from './NextButton.module.scss';
 
 import ArrowDown from '@/icons/ArrowDown.svg';
 
-// interface NextButtonProps {
-//   isClicked: boolean;
-// }
+interface NextButtonProps {
+  x: MotionValue<string>;
+  opacity: MotionValue<number>;
+}
 
-export const NextButton: React.FC = ({}) => {
+export const NextButton: React.FC<NextButtonProps> = ({ x, opacity }) => {
   return (
-    <motion.div className={styles.buttonBlock}>
-      <motion.div
-        className={styles.desktopOnly}
-        initial={{ x: 50, opacity: 0 }}
-        animate={{
-          x: 0,
-          opacity: 1,
-        }}
-        transition={{ duration: 3, ease: 'easeInOut' }}
-        style={{ pointerEvents: 'auto' }}
-      >
-        <Link href="/#meet" passHref>
+    <motion.div className={styles.buttonBlock} style={{ x, opacity }}>
+      <div className={styles.desktopOnly}>
+        <Link href="/#eiffel" passHref>
           <p>Next</p>
         </Link>
-      </motion.div>
+      </div>
 
-      <Link href="/#meet" className={styles.mobileOnly} passHref>
+      <Link href="/#eiffel" className={styles.mobileOnly} passHref>
         <ArrowDown />
       </Link>
     </motion.div>
